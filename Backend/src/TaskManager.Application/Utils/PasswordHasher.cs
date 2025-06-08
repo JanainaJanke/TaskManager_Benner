@@ -8,7 +8,6 @@ namespace TaskManager.Application.Utils
         public static string HashPassword(string password)
         {
             // Argon2.Hash() gera o hash no formato MCF, incluindo salt e parâmetros.
-            // Você pode passar um Argon2Config para personalizar os parâmetros.
             // O padrão é Argon2id com parâmetros razoáveis.
             return Argon2.Hash(password);
         }

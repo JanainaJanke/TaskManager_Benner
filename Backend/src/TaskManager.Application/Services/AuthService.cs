@@ -40,7 +40,6 @@ namespace TaskManager.Application.Services
         private bool VerifyPasswordHash(string password, string storedHash)
         {
             //Verificação de senha via Argon2
-            //string hashPassword = PasswordHasher.HashPassword(password);
             return PasswordHasher.VerifyPassword(password, storedHash);
         }
 

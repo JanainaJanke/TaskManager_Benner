@@ -8,7 +8,6 @@ using TaskManager.Application.DTO;
 
 namespace TaskManager.Tests.API
 {
-    // IClassFixture é usado para criar uma instância da factory uma única vez para todos os testes na classe.
     public class TasksControllerTests : IClassFixture<CustomWebApplicationFactory<Program>>
     {
         private readonly CustomWebApplicationFactory<Program> _factory;
@@ -17,7 +16,6 @@ namespace TaskManager.Tests.API
         private readonly string _testUsername = "testuser";
         private readonly string _testToken;
 
-        // O construtor é executado antes de cada método de teste, mas a _factory é instanciada apenas uma vez.
         public TasksControllerTests(CustomWebApplicationFactory<Program> factory)
         {
             _factory = factory;
@@ -74,7 +72,7 @@ namespace TaskManager.Tests.API
         {
             // Arrange
             var taskId = Guid.NewGuid();
-            var mockTask = new TaskItemDto { Id = taskId, Title = "Single Task", IsCompleted = true, DueDate = DateTime.Today };
+            var mockTask = new TaskItemDto { Id = taskId, Title = "Tarefa teste", IsCompleted = true, DueDate = DateTime.Today };
 
             _factory.MockTaskItemService
                     .Setup(s => s.GetTaskByIdAsync(taskId, _testUserId))
@@ -199,8 +197,6 @@ namespace TaskManager.Tests.API
         public async Task CreateTask_ReturnsBadRequest_WhenDueDateIsEmpty()
         {
             // Arrange
-            // DateTime.MinValue ou default(DateTime) geralmente resultam em DateTime.Parse falhando ou sendo tratadas como invalidas por DefaultValueHandling
-            // No FluentValidation, DateTime.MinValue ou 0001-01-01 são geralmente consideradas "empty" se o campo é NotEmpty()
             var command = new CreateTaskItemCommand { Title = "Valid Title", Description = "Desc", DueDate = default(DateTime) };
             var content = new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json");
 
@@ -243,13 +239,13 @@ namespace TaskManager.Tests.API
             var command = new UpdateTaskItemCommand
             {
                 Id = taskId,
-                Title = "Updated Title",
-                Description = "Updated Desc",
+                Title = "Alteração do título",
+                Description = "Alteração da descrição",
                 DueDate = DateTime.Today.AddDays(1),
                 IsCompleted = true,
                 UserId = _testUserId
             };
-            var updatedTaskDto = new TaskItemDto { Id = taskId, Title = "Updated Title", Description = "Updated Desc", DueDate = command.DueDate, IsCompleted = command.IsCompleted};
+            var updatedTaskDto = new TaskItemDto { Id = taskId, Title = "Alteração do título", Description = "Alteração da descrição", DueDate = command.DueDate, IsCompleted = command.IsCompleted};
 
             _factory.MockTaskItemService
                     .Setup(s => s.UpdateTaskAsync(It.IsAny<UpdateTaskItemCommand>()))
@@ -264,7 +260,7 @@ namespace TaskManager.Tests.API
             response.EnsureSuccessStatusCode(); // Status 200 OK
             var resultTask = JsonConvert.DeserializeObject<TaskItemDto>(await response.Content.ReadAsStringAsync());
             Assert.NotNull(resultTask);
-            Assert.Equal("Updated Title", resultTask.Title);
+            Assert.Equal("Alteração do título", resultTask.Title);
             Assert.True(resultTask.IsCompleted);
 
             _factory.MockTaskItemService.Verify(s => s.UpdateTaskAsync(It.Is<UpdateTaskItemCommand>(c =>
@@ -284,8 +280,8 @@ namespace TaskManager.Tests.API
             var command = new UpdateTaskItemCommand
             {
                 Id = taskId, // Garante que o ID do comando seja igual ao ID da rota
-                Title = "Non Existent",
-                Description = "Updated Description",
+                Title = "Não existente",
+                Description = "Alteração de descrição",
                 DueDate = DateTime.Today.AddDays(1),
                 IsCompleted = false
                 // UserId será definido automaticamente no controller

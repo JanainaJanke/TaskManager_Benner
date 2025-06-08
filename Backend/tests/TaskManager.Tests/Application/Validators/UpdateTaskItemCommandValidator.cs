@@ -43,7 +43,7 @@ namespace TaskManager.Tests.Application.Validators
         [Fact]
         public void ShouldHaveError_WhenDueDateIsEmpty()
         {
-            var command = new UpdateTaskItemCommand { Title = "Valid Title", Description = "Desc", DueDate = DateTime.MinValue, UserId = Guid.NewGuid() }; // DateTime.MinValue para simular vazio/inválido
+            var command = new UpdateTaskItemCommand { Title = "Título válido", Description = "Desc", DueDate = DateTime.MinValue, UserId = Guid.NewGuid() }; // DateTime.MinValue para simular vazio/inválido
             var result = _validator.TestValidate(command);
             result.ShouldHaveValidationErrorFor(x => x.DueDate)
                   .WithErrorMessage("A data limite é obrigatória.");
@@ -52,7 +52,7 @@ namespace TaskManager.Tests.Application.Validators
         [Fact]
         public void ShouldHaveError_WhenDueDateIsPast()
         {
-            var command = new UpdateTaskItemCommand { Title = "Valid Title", Description = "Desc", DueDate = DateTime.Today.AddDays(-1), UserId = Guid.NewGuid() };
+            var command = new UpdateTaskItemCommand { Title = "Título válido", Description = "Desc", DueDate = DateTime.Today.AddDays(-1), UserId = Guid.NewGuid() };
             var result = _validator.TestValidate(command);
             result.ShouldHaveValidationErrorFor(x => x.DueDate)
                   .WithErrorMessage("A data limite deve ser uma data válida e futura.");
@@ -61,7 +61,7 @@ namespace TaskManager.Tests.Application.Validators
         [Fact]
         public void ShouldNotHaveError_WhenCommandIsValid()
         {
-            var command = new UpdateTaskItemCommand { Title = "Valid Task", Description = "Valid Description", DueDate = DateTime.Today.AddDays(1), UserId = Guid.NewGuid() };
+            var command = new UpdateTaskItemCommand { Title = "Tarefa válida", Description = "Descrição válida", DueDate = DateTime.Today.AddDays(1), UserId = Guid.NewGuid() };
             var result = _validator.TestValidate(command);
             result.ShouldNotHaveAnyValidationErrors();
         }
