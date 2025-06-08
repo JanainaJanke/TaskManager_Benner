@@ -102,8 +102,6 @@ const handleToggleTask = async (id: string): Promise<void> => {
       return
     }
 
-    console.log(`🔄 Toggling task: ${currentTask.title} from ${currentTask.isCompleted} to ${!currentTask.isCompleted}`)
-
     // Chamar API com tarefa completa
     const updatedTask = await taskService.toggleTask(currentTask)
     

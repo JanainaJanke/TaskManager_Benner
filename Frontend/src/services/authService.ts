@@ -14,16 +14,12 @@ interface JwtPayload {
 export class AuthService {
   async login(credentials: LoginCredentials): Promise<{ success: boolean; user: User; token: string; message?: string }> {
     try {
-      console.log('🚀 Enviando credenciais para API:', credentials)
-      
       const response = await api.post<AuthResponse>('/auth/login', credentials)
-      console.log('✅ Resposta da API:', response.data)
       
       const { token } = response.data
       
       // Decodificar JWT para extrair dados do usuário
       const decoded = jwtDecode<JwtPayload>(token)
-      console.log('🔍 Token decodificado:', decoded)
       
       const user: User = {
         id: decoded.nameid,

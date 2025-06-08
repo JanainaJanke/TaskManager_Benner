@@ -20,12 +20,9 @@ const Login: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginCredentials> = async (data) => {
     try {
-      console.log('📝 Dados do formulário:', data)
-      
       const response = await authService.login(data)
       
       if (response.success) {
-        console.log('✅ Login bem-sucedido')
         login(response.token)
         toast.success('Login realizado com sucesso!')
         
@@ -63,9 +60,6 @@ const Login: React.FC = () => {
         // Outro erro
         toast.error('Erro inesperado')
       }
-      
-      // IMPORTANTE: NÃO fazer navigate() em caso de erro
-      // Permanecer na mesma página (/)
     }
   }
 

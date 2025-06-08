@@ -6,10 +6,8 @@ export interface ApiResponse<T = any> {
   error?: string
 }
 
-// Sua API retorna task diretamente, não em objeto wrapper
 export interface TaskResponse extends Task {}
 
-// Sua API retorna array de tasks diretamente
 export interface TasksResponse extends Array<Task> {}
 
 export interface ApiError {

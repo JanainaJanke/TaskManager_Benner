@@ -77,8 +77,6 @@ const TaskForm: React.FC<TaskFormProps> = ({ Task, onSubmit, onCancel }) => {
         dueDate: formatDateForAPI(data.dueDate)
       }
       
-      console.log('📅 Dados enviados:', submitData)
-      
       await onSubmit(submitData)
       
       if (!Task) {

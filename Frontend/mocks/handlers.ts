@@ -9,8 +9,6 @@ export const handlers = [
   rest.post<{ userName: string; password: string }>(`${API_BASE_URL}/auth/login`, (req, res, ctx) => {
     const { userName, password } = req.body
     
-    console.log('Recebido no mock:', { userName, password })  // ← Debug
-    
     if (userName === 'admin' && password === '123456') {
       const response: AuthResponse = {
         success: true,

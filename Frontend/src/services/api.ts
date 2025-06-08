@@ -66,14 +66,7 @@ class ApiService {
   }
 
   public async put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): Promise<AxiosResponse<T>> {
-    console.log(`🔄 PUT Request:`, {
-      url: `${this.instance.defaults.baseURL}${url}`,
-      data
-    })
-    
     const response = await this.instance.put<T>(url, data, config)
-    
-    console.log(`✅ PUT Response:`, response.data)
     return response
   }
 

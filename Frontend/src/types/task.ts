@@ -1,29 +1,27 @@
 
 export interface Task {
-  id: string  // ← Mudado para string (Guid)
+  id: string 
   title: string
   description?: string
-  dueDate: string  // ← Nova propriedade para data de vencimento  
-  isCompleted: boolean  // ← Pode ser que sua API use isCompleted
+  dueDate: string
+  isCompleted: boolean
   createdAt: string
   updatedAt?: string
-  userId: string  // ← Guid como string
+  userId: string
 }
 
 export interface CreateTaskData {
   title: string
   description?: string
-  dueDate: string  // ← Nova propriedade
-  // userId será adicionado automaticamente no backend
+  dueDate: string
 }
 
 export interface UpdateTaskData {
-  id: string  // ← Necessário para o comando
+  id: string
   title?: string
   description?: string
-  dueDate?: string  // ← Nova propriedade
+  dueDate?: string
   isCompleted?: boolean
-  // userId será adicionado automaticamente no backend
 }
 
 export type TaskFilter = 'all' | 'pending' | 'completed'

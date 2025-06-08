@@ -20,11 +20,8 @@ export const useAuthStore = create<AuthState>()(
       
       login: (token: string): void => {
         try {
-          console.log('🔑 Recebendo token:', token)
-          
           // Decodificar token para extrair dados do usuário
           const decoded = jwtDecode<JwtPayload>(token)
-          console.log('🔍 Token decodificado:', decoded)
           
           const user: User = {
             id: decoded.nameid,
@@ -33,22 +30,18 @@ export const useAuthStore = create<AuthState>()(
             email: decoded.email
           }
           
-          console.log('👤 Usuário extraído:', user)
-          
           set({
             user,
             token,
             isAuthenticated: true
           })
           
-          console.log('✅ Estado atualizado:', get())
         } catch (error) {
           console.error('❌ Erro ao decodificar token:', error)
         }
       },
       
       logout: (): void => {
-        console.log('🚪 Logout realizado')
         set({
           user: null,
           token: null,

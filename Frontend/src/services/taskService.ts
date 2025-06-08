@@ -35,9 +35,7 @@ export class TaskServiceClass {
     await api.delete(`/tasks/${id}`)
   }
   
-  // TOGGLE TASK CORRIGIDO - ENVIA OBJETO COMPLETO
   async toggleTask(currentTask: Task): Promise<TaskResponse> {
-    console.log(`🔄 Toggling task ${currentTask.id} from ${currentTask.isCompleted} to ${!currentTask.isCompleted}`)
     
     try {
       // Criar objeto completo para enviar à API
@@ -50,10 +48,7 @@ export class TaskServiceClass {
         userId: currentTask.userId
       }
       
-      console.log('📦 Enviando dados completos:', completeTaskData)
-      
       const response = await api.put<TaskResponse>(`/tasks/${currentTask.id}`, completeTaskData)
-      console.log('✅ Task toggled successfully:', response.data)
       return response
     } catch (error) {
       console.error('❌ Error toggling task:', error)
